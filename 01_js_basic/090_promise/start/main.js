@@ -284,63 +284,51 @@
 // console.log(resultE);
 // console.log(resultF);
 
-// Promise 非同期処理
-let a = 0;
+// Promiseを使った非同期処理
+// 非同期処理の中で定義した変数を使いたい場合に使用する（という解釈でいいのか？？？）
 
-  // 通常の動き：処理が上から順。
-  // first
-console.log('first => ', a);
-  // second
-setTimeout(() => {
-  console.log('second => ', a);  
-}, 2000);
-  // third
-console.log('third => ', a);
-    // reslut
-      // first =>  0
-      // third =>  0
-      // second =>  0
+//   // 同期処理（通常の動き）：処理が上から順。
+//   // 変数を初期化
+// let a = 0;
+//   // 変数の出力
+// console.log('before asynchronous processing => ', a);
+//   // 非同期処理で変数の値を上書き
+// setTimeout(() => {
+//   a = 100;
+// }, 2000);
+//   // 変数の出力
+//   // 当たり前だが、変数の値は最初に代入したままなわけです。
+// console.log('after asynchronous processing => ', a);  
 
-
-      // 非同期に処理する。
-
+  // 非同期にPromiseをかますことでどう変わるか？
 let A = 0;
-
-  // first
-console.log('first hoge => ', A);
-  // second
-    // まず、これが非同期処理の原型。
-    // ・Promise()でインスタンスを生成させる。
-    //   最初の無名関数には非同期させたい対象の処理を書く。
-    // ・つなげたthen()関数で『まさにその時』実行する。
+console.log('before asynchronous processing => ', A);
+  // Promiseをかますしてみる。
+  // new Promise(() => {}).then(() => {}).catch(() => {});
+    // ・Promise()のインスタンスを生成させる。
+    //   引数は`resolve（解決）関数`、`reject（拒否）関数`。
+    // ・無名関数には非同期させたい対象の処理を書く。
+    // 　この場合は、変数Aに1を代入するという処理。
+    //   この変数Aをresolve関数の引数とすることで、『thenメソッドの引数』として渡っていく。
+    // ・つなげたthen()関数で『まさにその時（2秒後）』実行する。
     // ・catchはエラー処理用。
-    // new Promise(() => {}).then(() => {}).catch(() => {});
 new Promise((resolve, reject) => {
   setTimeout(() => {
     A = 1;
     resolve(A);
+    // resolveかrejectかどちらか一つしか書けない。
+    // つまり、エラーが起こった時に自動的に渡っていく仕組みか？？？
+    // reject(A);
   }, 2000);
-}).then((A) => {
-  console.log('second hoge => ', A);  
-}).catch(() => {});
-  // third
-console.log('third hoge => ', A);
-    // reslut
-      // first =>  0
-      // third =>  0
-      // second =>  0
-
-// new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//         a = 1;
-//         resolve(a)
-//     }, 2000);
-// }).then((b) => {
-//     console.log(b);
-//     return b;
-// }).then((b) => {
-//     console.log(b);
-// }).catch((c) => {
-//     console.log('catchが実行', c)
-// })
+}).then((B) => {
+  console.log('after asynchronous processing => ', B);
+  return B;
+  // thenメソッドは後ろに処理を繋がることができる。
+  // その際に、前のthenメソッドでは、値をretrunで返さないと繋がらないから要注意。
+}).then((C) => {
+  console.log('after asynchronous processing => ', C);
+}).catch((e) => {
+  console.log("catchが実行させるにはreject関数をイキにしないとね。", e);
+  console.log("その代わりresolve関数はコメントアウトだよ。", e);
+});
 
