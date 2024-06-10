@@ -52,48 +52,64 @@
 //   // 第二引数 => 実行したい関数。
 // btnEl.addEventListener('click', helloFn)
 
-// 配列
-const arr = [10, 20, 30, 40];
+// // 配列
+// const arr = [10, 20, 30, 40];
 
-  // for
+//   // for
+// const newArr = [];
+// for (let i = 0; i < arr.length; i++) {
+//   newArr.push(arr[i] * 2)
+// }
+// console.log(newArr);
+
+const arr = [10, 20, 30, 40];
 const newArr = [];
-for (let i = 0; i < arr.length; i++) {
-  newArr.push(arr[i] * 2)
+
+for(let val of arr) {
+  val *= 2;
+  (val >= 50) && newArr.push(val);
 }
 console.log(newArr);
 
-  // map
-  // mapは引数にコールバック関数を持つ。
-  // この引数部分で配列の中身を変更する仕組み。
-  // この書き方は省略形。
-const newArr2 = arr.map(elem => elem * 2);
+const newArr2 = arr.map(val => val * 2)
+                .filter(val => val >= 50);
 console.log(newArr2);
 
-  // 複数行に分けて詳細な仕組みを作ることもできる。
-  // 定義した関数の最後は『return』で値を返さないといけない。
-const newArr3 = arr.map(elem => {
-  return elem * 2;
-});
-console.log(newArr3);
 
-  // mapの引数は3つ
-  // 値、インデックス、元の配列自体。
-const newArr4 = arr.map((elem, idx, arr) => {
-  return elem * 2;
-});
-console.log(newArr3);
 
-  // filter
-    // for版だと長いね。
-const newArr5 = [];
-for (let i = 0; i < arr.length; i++) {
-  const elem = arr[i] * 3;
-  if (elem > 50) {
-    newArr5.push(elem);
-  }
-}
-console.log(newArr5);
 
-    // filter版
-const newArr6 = arr.map(elem => elem * 2).filter(elem => elem > 50);
-console.log(newArr6);
+//   // map
+//   // mapは引数にコールバック関数を持つ。
+//   // この引数部分で配列の中身を変更する仕組み。
+//   // この書き方は省略形。
+// const newArr2 = arr.map(elem => elem * 2);
+// console.log(newArr2);
+
+//   // 複数行に分けて詳細な仕組みを作ることもできる。
+//   // 定義した関数の最後は『return』で値を返さないといけない。
+// const newArr3 = arr.map(elem => {
+//   return elem * 2;
+// });
+// console.log(newArr3);
+
+//   // mapの引数は3つ
+//   // 値、インデックス、元の配列自体。
+// const newArr4 = arr.map((elem, idx, arr) => {
+//   return elem * 2;
+// });
+// console.log(newArr3);
+
+//   // filter
+//     // for版だと長いね。
+// const newArr5 = [];
+// for (let i = 0; i < arr.length; i++) {
+//   const elem = arr[i] * 3;
+//   if (elem > 50) {
+//     newArr5.push(elem);
+//   }
+// }
+// console.log(newArr5);
+
+//     // filter版
+// const newArr6 = arr.map(elem => elem * 2).filter(elem => elem > 50);
+// console.log(newArr6);

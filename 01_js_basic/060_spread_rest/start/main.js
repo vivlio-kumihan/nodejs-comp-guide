@@ -185,6 +185,7 @@ console.log(result_spreadRest);
   // オリジナルには影響しないやつ。
   let arr = [1, 2, 3];
   let myArr = [...arr];
+  console.log(arr === myArr);
   myArr.push(100);
   console.log(arr, myArr)
   
@@ -195,19 +196,17 @@ console.log(result_spreadRest);
   console.log(newArr);
   
   // オブジェクトで複製してコピーをやってみる。
-const obj = {
-  name: "Tom",
-  age: 22,
-};
+const obj = { name: "nob", age: 59 };
 const newObj = { ...obj };
 newObj.name = 'John';
-newObj.country = 'England'
+newObj.age = 40;
 console.log(obj, newObj);
 
   // 可変長引数をやる。
-  // これまでの説明があって初めての可変長引数な訳だった。
+  // 関数を定義する時に、スプレッド演算子を使って引数として渡しておき、
+  // 関数の実行時に値を設定すると配列として返る。
 const restA = (...argA) => console.log(argA);
 restA(1, 3)
 
-const restB = (n, ...argB) => console.log(argB);
+const restB = (n, ...argB) => console.log(n, argB);
 restB(1, 3, 4)
